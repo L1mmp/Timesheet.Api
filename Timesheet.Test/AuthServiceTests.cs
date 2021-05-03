@@ -10,16 +10,18 @@ namespace Timesheet.Test
         {
         }
 
-        [TestCase("Иванов")]
-        [TestCase("Петров")]
-        [TestCase("Сидоров")]
+        
+
+        [TestCase("РРІР°РЅРѕРІ")]
+        [TestCase("РџРµС‚СЂРѕРІ")]
+        [TestCase("РЎРёРґРѕСЂРѕРІ")]
         public void Login_ShouldReturnTrue(string lastName)
         {
             //arrange
 
             var service = new AuthService();
 
-            //act 
+            //act qwe
 
             var result = service.Login(lastName);
 
@@ -34,7 +36,7 @@ namespace Timesheet.Test
         public void Login_InvokeLoginTwiceForOneLastName_ShouldReturnTrue()
         {
             //arrange
-            var lastName = "Иванов";
+            var lastName = "РРІР°РЅРѕРІ";
 
             var service = new AuthService();
 
