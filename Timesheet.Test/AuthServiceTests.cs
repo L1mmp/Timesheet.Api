@@ -21,8 +21,8 @@ namespace Timesheet.Test
 
             var service = new AuthService();
 
-            //act qwe
-
+            //act
+            
             var result = service.Login(lastName);
 
             //assert
