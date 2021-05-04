@@ -2,7 +2,7 @@
 
 namespace Timesheet.Api.Services
 {
-    public class AuthService
+    public class AuthService : IAuthService
     {
         public AuthService()
         {
@@ -24,7 +24,7 @@ namespace Timesheet.Api.Services
 
             var IsEmployeeExist = Employees.Contains(lastName);
 
-            if(IsEmployeeExist)
+            if (IsEmployeeExist)
             {
                 UserSession.Sessions.Add(lastName);
             }

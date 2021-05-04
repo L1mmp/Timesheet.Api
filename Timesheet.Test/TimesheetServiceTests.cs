@@ -17,8 +17,8 @@ namespace Timesheet.Test
             {
                 Date = new DateTime(),
                 WorkingHourhs = 1,
-                LastName = ""
-
+                LastName = "Иванов",
+                Comment = Guid.NewGuid().ToString()
             };
 
             var service = new TimesheetService();
@@ -32,8 +32,17 @@ namespace Timesheet.Test
 
             Assert.IsTrue(reuslt);
         }
-        [Test]
-        public void TrackTime_ShouldReturnFalse()
+
+        [TestCase(-1,"")]
+        [TestCase(-1,null)]
+        [TestCase(-1, "testUser")]
+        [TestCase(25,"")]
+        [TestCase(25,null)]
+        [TestCase(25, "testUser")]
+        [TestCase(8, "")]
+        [TestCase(8, null)]
+        [TestCase(8, "testUser")]
+        public void TrackTime_ShouldReturnFalse(int workingHours, string lastName)
         {
             //arrange
 
@@ -42,8 +51,8 @@ namespace Timesheet.Test
             var timeLog = new TimeLog
             {
                 Date = new DateTime(),
-                WorkingHourhs = 1,
-                LastName = ""
+                WorkingHourhs = workingHours,
+                LastName = lastName
 
             };
 

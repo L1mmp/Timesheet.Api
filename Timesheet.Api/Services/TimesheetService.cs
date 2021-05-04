@@ -8,9 +8,18 @@ namespace Timesheet.Api.Services
     {
         public bool TrackTime(TimeLog timeLog)
         {
-            Timesheets.TimeLogs.Add(timeLog);
+            bool IsTimelogValid = timeLog.WorkingHourhs <= 24 && timeLog.WorkingHourhs > 0
+            && !string.IsNullOrWhiteSpace(timeLog.LastName);
 
-            return true;
+            IsTimelogValid = IsTimelogValid && UserSession.Sessions.Contains(timeLog.LastName);
+
+            if (IsTimelogValid)
+            {
+                Timesheets.TimeLogs.Add(timeLog);
+                return true;
+            }
+
+            return false;
         }
 
     }

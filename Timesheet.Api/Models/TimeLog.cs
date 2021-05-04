@@ -11,5 +11,6 @@ namespace Timesheet.Api.Models
 
         public int WorkingHourhs { get; set; }
         public string LastName { get; set; }
+        public string Comment { get; set; }
     }
 }
