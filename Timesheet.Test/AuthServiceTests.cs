@@ -1,5 +1,5 @@
 using NUnit.Framework;
-using Timesheet.Api.Services;
+using Timesheet.Application.Services;
 
 namespace Timesheet.Test
 {
@@ -12,9 +12,9 @@ namespace Timesheet.Test
 
         
 
-        [TestCase("РРІР°РЅРѕРІ")]
-        [TestCase("РџРµС‚СЂРѕРІ")]
-        [TestCase("РЎРёРґРѕСЂРѕРІ")]
+        [TestCase("Иванов")]
+        [TestCase("Петров")]
+        [TestCase("Сидоров")]
         public void Login_ShouldReturnTrue(string lastName)
         {
             //arrange
@@ -36,12 +36,10 @@ namespace Timesheet.Test
         public void Login_InvokeLoginTwiceForOneLastName_ShouldReturnTrue()
         {
             //arrange
-            var lastName = "РРІР°РЅРѕРІ";
+            var lastName = "Иванов";
 
             var service = new AuthService();
 
-
-            //wqe
             //act 
 
             var result = service.Login(lastName);

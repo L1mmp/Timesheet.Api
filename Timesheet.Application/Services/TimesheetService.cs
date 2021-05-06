@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using Timesheet.Api.Models;
+using Timesheet.Domain.Models;
 
-namespace Timesheet.Api.Services
+namespace Timesheet.Application.Services
 {
-    public class TimesheetService
+    public class TimesheetService : ITimesheetService
     {
         public bool TrackTime(TimeLog timeLog)
         {
-            bool IsTimelogValid = timeLog.WorkingHourhs <= 24 && timeLog.WorkingHourhs > 0
+            bool IsTimelogValid = timeLog.WorkingHours <= 24 && timeLog.WorkingHours > 0
             && !string.IsNullOrWhiteSpace(timeLog.LastName);
 
             IsTimelogValid = IsTimelogValid && UserSession.Sessions.Contains(timeLog.LastName);
@@ -25,7 +25,6 @@ namespace Timesheet.Api.Services
     }
     public static class Timesheets
     {
-
         public static List<TimeLog> TimeLogs = new List<TimeLog>();
     }
 }

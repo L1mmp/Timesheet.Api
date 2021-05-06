@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using Timesheet.Application.Services;
 
-namespace Timesheet.Api.Services
+namespace Timesheet.Application.Services
 {
     public class AuthService : IAuthService
     {
+        public List<string> Employees { get; private set; }
         public AuthService()
         {
             Employees = new List<string>
@@ -14,8 +16,6 @@ namespace Timesheet.Api.Services
             };
 
         }
-
-        public List<string> Employees { get; private set; }
 
         public bool Login(string lastName)
         {
@@ -31,14 +31,10 @@ namespace Timesheet.Api.Services
 
             return IsEmployeeExist;
         }
-
-
-
     }
 
     public static class UserSession
     {
-
         public static HashSet<string> Sessions = new HashSet<string>();
     }
 }

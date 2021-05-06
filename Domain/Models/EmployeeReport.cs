@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Timesheet.Domain.Models;
 
-
-namespace Timesheet.Api.Models
+namespace Timesheet.Domain.Models
 {
     /// <summary>
     /// Отчет по сотруднику: [Имя сотрудника] за период за период с [дата начала] по [дата окончания]
@@ -18,7 +18,7 @@ namespace Timesheet.Api.Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
-        public List<TimeLog> timeLogs { get; set; }
+        public List<TimeLog> TimeLogs { get; set; }
 
         public int TotalHours { get; set; }
         public decimal Bill { get; set; }

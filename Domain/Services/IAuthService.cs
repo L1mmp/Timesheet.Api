@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Timesheet.Api.Services
+namespace Timesheet.Application.Services
 {
     public interface IAuthService
     {

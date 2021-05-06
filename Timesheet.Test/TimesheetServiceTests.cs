@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
-using Timesheet.Api.Models;
-using Timesheet.Api.Services;
+using Timesheet.Domain.Models;
+using Timesheet.Application.Services;
 
 namespace Timesheet.Test
 {
@@ -16,7 +16,7 @@ namespace Timesheet.Test
             var timeLog = new TimeLog
             {
                 Date = new DateTime(),
-                WorkingHourhs = 1,
+                WorkingHours = 1,
                 LastName = "Иванов",
                 Comment = Guid.NewGuid().ToString()
             };
@@ -51,7 +51,7 @@ namespace Timesheet.Test
             var timeLog = new TimeLog
             {
                 Date = new DateTime(),
-                WorkingHourhs = workingHours,
+                WorkingHours = workingHours,
                 LastName = lastName
 
             };

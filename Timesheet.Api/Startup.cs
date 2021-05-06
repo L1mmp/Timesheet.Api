@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Timesheet.Api.Services;
+using Timesheet.Application.Services;
 
 namespace Timesheet.Api
 {
@@ -20,6 +20,7 @@ namespace Timesheet.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IAuthService, AuthService>();
+            services.AddTransient<ITimesheetService, TimesheetService>();
 
             services.AddControllers();
         }
