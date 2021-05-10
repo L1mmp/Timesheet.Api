@@ -9,6 +9,7 @@ namespace Timesheet.Application.Services
     public class ReportService
     {
         private const decimal MAX_WORKING_HOURS_IN_MONTH = 160m;
+        private const decimal OVERTIME_MULTIPLIER = 2m;
         private readonly ITimesheetRepository _timesheetRepository;
         private readonly IEmployeeRepository _employeeRepository;
         public ReportService(ITimesheetRepository timesheetRepository, IEmployeeRepository employeeRepository)
@@ -24,7 +25,12 @@ namespace Timesheet.Application.Services
 
             int hours = timeLogs.Sum(x => x.WorkingHours);
             decimal bill = (hours / MAX_WORKING_HOURS_IN_MONTH) * employee.Salary;
-            //additionalBill (>160hrs)
+
+            if (hours > MAX_WORKING_HOURS_IN_MONTH)
+            {
+                decimal additionalBill = hours - MAX_WORKING_HOURS_IN_MONTH * employee.Salary * OVERTIME_MULTIPLIER;
+                bill += additionalBill;
+            }
 
             var result = new EmployeeReport
             {
