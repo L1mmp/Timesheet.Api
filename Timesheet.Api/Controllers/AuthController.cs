@@ -19,8 +19,6 @@ namespace Timesheet.Api.Controllers
         public ActionResult<bool> Login(LoginRequest request)
         {
             //var authService = new AuthService();
-
-
             return Ok(_authService.Login(request.LastName));
         }
     }

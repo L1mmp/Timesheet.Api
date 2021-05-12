@@ -2,6 +2,8 @@
 using System;
 using Timesheet.Domain.Models;
 using Timesheet.Application.Services;
+using Moq;
+using Timesheet.Domain.Repositories;
 
 namespace Timesheet.Test
 {
@@ -11,8 +13,8 @@ namespace Timesheet.Test
         public void TrackTime_ShouldReturnTrue()
         {
             //arrange
+            var timesheetRepositoryMock = new Mock<ITimesheetRepository>();
 
-            //act
             var timeLog = new TimeLog
             {
                 Date = new DateTime(),
@@ -21,23 +23,31 @@ namespace Timesheet.Test
                 Comment = Guid.NewGuid().ToString()
             };
 
-            var service = new TimesheetService();
+            timesheetRepositoryMock
+                .Setup(x => x.Add(timeLog))
+                .Verifiable();
+
+
+
+            var service = new TimesheetService(timesheetRepositoryMock.Object);
+            //act
+
 
 
             var reuslt = service.TrackTime(timeLog);
 
 
             //assert
-
+            timesheetRepositoryMock.Verify(x => x.Add(timeLog), Times.Once);
 
             Assert.IsTrue(reuslt);
         }
 
-        [TestCase(-1,"")]
-        [TestCase(-1,null)]
+        [TestCase(-1, "")]
+        [TestCase(-1, null)]
         [TestCase(-1, "testUser")]
-        [TestCase(25,"")]
-        [TestCase(25,null)]
+        [TestCase(25, "")]
+        [TestCase(25, null)]
         [TestCase(25, "testUser")]
         [TestCase(8, "")]
         [TestCase(8, null)]
@@ -46,7 +56,7 @@ namespace Timesheet.Test
         {
             //arrange
 
-            //act
+            var timesheetRepositoryMock = new Mock<ITimesheetRepository>();
 
             var timeLog = new TimeLog
             {
@@ -56,14 +66,19 @@ namespace Timesheet.Test
 
             };
 
+            timesheetRepositoryMock
+                .Setup(x => x.Add(timeLog))
+                .Verifiable();
 
-            var service = new TimesheetService();
+            var service = new TimesheetService(timesheetRepositoryMock.Object);
+
+            //act
 
             var reuslt = service.TrackTime(timeLog);
 
-
             //assert
 
+            timesheetRepositoryMock.Verify(x => x.Add(timeLog), Times.Never);
 
             Assert.IsFalse(reuslt);
         }

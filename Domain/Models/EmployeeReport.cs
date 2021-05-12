@@ -14,6 +14,11 @@ namespace Timesheet.Domain.Models
     /// </summary>
     public class EmployeeReport
     {
+        public EmployeeReport()
+        {
+            TimeLogs = new List<TimeLog>();
+        }
+
         public string LastName { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

@@ -4,6 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Timesheet.Application.Services;
+using Timesheet.Domain.Repositories;
+using Timesheet.DataAccess.CSV;
 
 namespace Timesheet.Api
 {
@@ -21,6 +23,7 @@ namespace Timesheet.Api
         {
             services.AddTransient<IAuthService, AuthService>();
             services.AddTransient<ITimesheetService, TimesheetService>();
+            services.AddTransient<ITimesheetRepository, TimesheetRepository>();
 
             services.AddControllers();
         }
