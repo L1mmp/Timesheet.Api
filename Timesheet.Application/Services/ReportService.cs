@@ -3,10 +3,11 @@ using Timesheet.Domain.Models;
 using System.Collections.Generic;
 using Timesheet.Domain.Repositories;
 using System.Linq;
+using Domain.Services;
 
 namespace Timesheet.Application.Services
 {
-    public class ReportService
+    public class ReportService : IReportService
     {
         private const int MAX_WORKING_HOURS_IN_MONTH = 160;
         private const int MAX_WORKING_HOURS_IN_DAY = 8;

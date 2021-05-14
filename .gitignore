@@ -342,3 +342,5 @@ healthchecksdb
 #User files
 .csv
 /Timesheet.DataAccess/Data/timesheet.csv
+.vscode/tasks.json
+.vscode/launch.json

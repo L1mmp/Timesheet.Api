@@ -10,6 +10,7 @@ namespace Timesheet.DataAccess.CSV
     public class TimesheetRepository : ITimesheetRepository
     {
         private const string PATH = "..\\Timesheet.DataAccess\\Data\\timesheet.csv";
+        //private const string path = "\\home\\user\\MyProjects\\C#_Projects\\Timesheet.Api\\Timesheet.DataAccess\\timesheet.csv";
         private const char DELIMETER = ';';
         public void Add(TimeLog timeLog)
         {
@@ -18,13 +19,13 @@ namespace Timesheet.DataAccess.CSV
                 $"{timeLog.LastName}{DELIMETER}" +
                 $"{timeLog.WorkingHours}\n";
 
-            File.AppendAllText(PATH, dataRow, System.Text.Encoding.UTF8);
+            File.AppendAllText(path, dataRow, System.Text.Encoding.UTF8);
         }
 
         public TimeLog[] GetTimeLogs(string lastName)
         {
 
-            var data = File.ReadAllText(PATH);
+            var data = File.ReadAllText(path);
 
             var timeLogs = new List<TimeLog>();
 

@@ -14,7 +14,7 @@ namespace Timesheet.Api.ResourceModels
         {
             return new TimeLog()
             {
-                Date = DateTime.Parse(Date),
+                Date = DateTime.TryParse(Date, out var date)? date : DateTime.Today,
                 WorkingHours = WorkingHours,
                 LastName = LastName,
                 Comment = Comment

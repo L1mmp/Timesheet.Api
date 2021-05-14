@@ -7,6 +7,7 @@ using Timesheet.Application.Services;
 using Timesheet.Domain.Services;
 using Timesheet.Domain.Repositories;
 using Timesheet.DataAccess.CSV;
+using Domain.Services;
 
 namespace Timesheet.Api
 {
@@ -27,6 +28,7 @@ namespace Timesheet.Api
             services.AddTransient<ITimesheetRepository, TimesheetRepository>();
             services.AddTransient<IEmployeeRepository, EmployeeRepository>();
             services.AddTransient<IEmployeeService, EmployeeService>();
+            services.AddTransient<IReportService, ReportService>();
 
             services.AddControllers();
         }
