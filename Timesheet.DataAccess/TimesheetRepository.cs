@@ -13,13 +13,12 @@ namespace Timesheet.DataAccess.CSV
         private const char DELIMETER = ';';
         public void Add(TimeLog timeLog)
         {
-
             var dataRow = $"{timeLog.Comment}{DELIMETER}" +
                 $"{timeLog.Date}{DELIMETER}" +
                 $"{timeLog.LastName}{DELIMETER}" +
                 $"{timeLog.WorkingHours}\n";
 
-            File.AppendAllText(PATH, dataRow);
+            File.AppendAllText(PATH, dataRow, System.Text.Encoding.UTF8);
         }
 
         public TimeLog[] GetTimeLogs(string lastName)

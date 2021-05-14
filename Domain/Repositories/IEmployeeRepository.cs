@@ -5,5 +5,6 @@ namespace Timesheet.Domain.Repositories
     public interface IEmployeeRepository
     {
         StaffEmployee GetEmployee(string lastName);
+        void AddEmployee(StaffEmployee staffEmployee);
     }
 }

@@ -1,20 +1,17 @@
 ﻿using System.Collections.Generic;
 using Timesheet.Application.Services;
+using Timesheet.Domain.Models;
+using Timesheet.Domain.Repositories;
 
 namespace Timesheet.Application.Services
 {
     public class AuthService : IAuthService
     {
-        public List<string> Employees { get; private set; }
-        public AuthService()
-        {
-            Employees = new List<string>
-            {
-                "Иванов",
-                "Петров",
-                "Сидоров"
-            };
+        IEmployeeRepository _employeeRepository;
 
+        public AuthService(IEmployeeRepository employeeRepository)
+        {
+            _employeeRepository = employeeRepository;
         }
 
         public bool Login(string lastName)
@@ -22,7 +19,8 @@ namespace Timesheet.Application.Services
             if (string.IsNullOrEmpty(lastName))
                 return false;
 
-            var IsEmployeeExist = Employees.Contains(lastName);
+            StaffEmployee employee = _employeeRepository.GetEmployee(lastName);
+            bool IsEmployeeExist = (employee != null);
 
             if (IsEmployeeExist)
             {
