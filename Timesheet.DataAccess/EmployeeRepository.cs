@@ -12,11 +12,11 @@ namespace Timesheet.DataAccess.CSV
         public void AddEmployee(StaffEmployee staffEmployee)
         {
             var dataRow = $"{staffEmployee.LastName}{DELIMETER}{staffEmployee.Salary}{DELIMETER}\n";
-            File.AppendAllText(path, dataRow,System.Text.Encoding.UTF8);
+            File.AppendAllText(PATH, dataRow,System.Text.Encoding.UTF8);
         }
         public StaffEmployee GetEmployee(string lastName)
         {
-            var data = File.ReadAllText(path);
+            var data = File.ReadAllText(PATH);
 
             StaffEmployee empoloyee = null;
 

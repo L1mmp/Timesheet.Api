@@ -19,13 +19,13 @@ namespace Timesheet.DataAccess.CSV
                 $"{timeLog.LastName}{DELIMETER}" +
                 $"{timeLog.WorkingHours}\n";
 
-            File.AppendAllText(path, dataRow, System.Text.Encoding.UTF8);
+            File.AppendAllText(PATH, dataRow, System.Text.Encoding.UTF8);
         }
 
         public TimeLog[] GetTimeLogs(string lastName)
         {
 
-            var data = File.ReadAllText(path);
+            var data = File.ReadAllText(PATH);
 
             var timeLogs = new List<TimeLog>();
 
