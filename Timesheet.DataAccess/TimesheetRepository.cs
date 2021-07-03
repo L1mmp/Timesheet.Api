@@ -26,24 +26,20 @@ namespace Timesheet.DataAccess.CSV
         {
 
             var data = File.ReadAllText(PATH);
-
+            var datarows = data.Split(new char[] { '\n' }, System.StringSplitOptions.RemoveEmptyEntries);
             var timeLogs = new List<TimeLog>();
 
-            foreach (var dataRow in data.Split('\n'))
+            foreach (var dataRow in datarows)
             {
-                var dataMemebers = dataRow.Split(DELIMETER);
+                var fields = dataRow.Split(DELIMETER);
 
                 var timeLog = new TimeLog()
                 {
-                    Comment = dataMemebers[0],
-                    Date = DateTime.TryParse(dataMemebers[1], out var date) ? date : new DateTime(),
-                    LastName = dataMemebers[2],
-                    WorkingHours = Int32.TryParse(dataMemebers[3], out var workingHours) ? workingHours : 0
+                    Comment = fields[0],
+                    Date = DateTime.TryParse(fields[1], out var date) ? date : new DateTime(),
+                    LastName = fields[2],
+                    WorkingHours = Int32.TryParse(fields[3], out var workingHours) ? workingHours : 0
                 };
-                //timeLog.Comment = dataMemebers[0];
-                //timeLog.Date = DateTime.TryParse(dataMemebers[1], out var date) ? date : new DateTime();
-                //timeLog.LastName = dataMemebers[2];
-                //timeLog.WorkingHours = Int32.TryParse(dataMemebers[3], out var workingHours) ? workingHours : 0;
                 timeLogs.Add(timeLog);
             }
             

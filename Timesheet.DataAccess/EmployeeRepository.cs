@@ -17,20 +17,22 @@ namespace Timesheet.DataAccess.CSV
         public StaffEmployee GetEmployee(string lastName)
         {
             var data = File.ReadAllText(PATH);
+            var datarows = data.Split(new char[] { '\n' }, System.StringSplitOptions.RemoveEmptyEntries);
 
             StaffEmployee empoloyee = null;
-
-            foreach (var dataRow in data.Split('\n'))
+            foreach (var dataRow in datarows)
             {
                 if(dataRow.Contains(lastName))
                 {
-                    var dataMembers = dataRow.Split(DELIMETER);
-
+                    var fields = dataRow.Split(DELIMETER);
+                    
                     empoloyee = new StaffEmployee()
                     {
-                        LastName = lastName,
-                        Salary = decimal.TryParse(dataMembers[1], out decimal Salary) ? Salary : 0m
+                        LastName = fields[0],
+                        Salary = decimal.TryParse(fields[1], out decimal Salary) ? Salary : 0m
                     };
+
+                    break; // 
                 }
             }
             return empoloyee;
