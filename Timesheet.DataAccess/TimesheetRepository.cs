@@ -31,18 +31,22 @@ namespace Timesheet.DataAccess.CSV
 
             foreach (var dataRow in data.Split('\n'))
             {
-                var timeLog = new TimeLog()
-                {
-                    WorkingHours = 2
-                };
                 var dataMemebers = dataRow.Split(DELIMETER);
 
-                timeLog.Comment = dataMemebers[0];
-                timeLog.Date = DateTime.TryParse(dataMemebers[1], out var date) ? date : new DateTime();
-                timeLog.LastName = dataMemebers[2];
-                timeLog.WorkingHours = Int32.TryParse(dataMemebers[3], out var workingHours) ? workingHours : 0;
+                var timeLog = new TimeLog()
+                {
+                    Comment = dataMemebers[0],
+                    Date = DateTime.TryParse(dataMemebers[1], out var date) ? date : new DateTime(),
+                    LastName = dataMemebers[2],
+                    WorkingHours = Int32.TryParse(dataMemebers[3], out var workingHours) ? workingHours : 0
+                };
+                //timeLog.Comment = dataMemebers[0];
+                //timeLog.Date = DateTime.TryParse(dataMemebers[1], out var date) ? date : new DateTime();
+                //timeLog.LastName = dataMemebers[2];
+                //timeLog.WorkingHours = Int32.TryParse(dataMemebers[3], out var workingHours) ? workingHours : 0;
+                timeLogs.Add(timeLog);
             }
-
+            
             return timeLogs.ToArray();
         }
     }

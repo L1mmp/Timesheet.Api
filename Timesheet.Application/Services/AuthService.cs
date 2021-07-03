@@ -20,14 +20,14 @@ namespace Timesheet.Application.Services
                 return false;
 
             StaffEmployee employee = _employeeRepository.GetEmployee(lastName);
-            bool IsEmployeeExist = (employee != null);
+            bool isEmployeeExist = (employee != null);
 
-            if (IsEmployeeExist)
+            if (isEmployeeExist)
             {
                 UserSession.Sessions.Add(lastName);
             }
 
-            return IsEmployeeExist;
+            return isEmployeeExist;
         }
     }
 

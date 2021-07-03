@@ -16,7 +16,7 @@ namespace Timesheet.Api.Controllers
             _reportService = reportService;
         }
 
-        [HttpGet]
+        [HttpPost]
         public ActionResult<EmployeeReport> Report(string lastName) => _reportService.GetEmployeeReport(lastName);
         
     }

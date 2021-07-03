@@ -44,6 +44,7 @@ namespace Timesheet.Test
             var employee = new StaffEmployee() { LastName = lastName, Salary = salary };
 
             var employeeRepository = new Mock<IEmployeeRepository>();
+            employeeRepository.Setup(x => x.AddEmployee(employee)).Verifiable();
 
             var service = new EmployeeService(employeeRepository.Object);
 
