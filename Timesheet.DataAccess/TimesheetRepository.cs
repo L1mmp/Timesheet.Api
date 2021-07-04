@@ -9,29 +9,35 @@ namespace Timesheet.DataAccess.CSV
 
     public class TimesheetRepository : ITimesheetRepository
     {
-        private const string PATH = "..\\Timesheet.DataAccess\\Data\\timesheet.csv";
-        //private const string path = "\\home\\user\\MyProjects\\C#_Projects\\Timesheet.Api\\Timesheet.DataAccess\\timesheet.csv";
-        private const char DELIMETER = ';';
+
+        private readonly string _path;
+        private readonly char _delimeter;
+        public TimesheetRepository(CsvSettings csvSettings)
+        {
+            _path = csvSettings.Path + "\\timesheet.csv";
+            _delimeter = csvSettings.Delimeter;
+        }
+
         public void Add(TimeLog timeLog)
         {
-            var dataRow = $"{timeLog.Comment}{DELIMETER}" +
-                $"{timeLog.Date}{DELIMETER}" +
-                $"{timeLog.LastName}{DELIMETER}" +
+            var dataRow = $"{timeLog.Comment}{_delimeter}" +
+                $"{timeLog.Date}{_delimeter}" +
+                $"{timeLog.LastName}{_delimeter}" +
                 $"{timeLog.WorkingHours}\n";
 
-            File.AppendAllText(PATH, dataRow, System.Text.Encoding.UTF8);
+            File.AppendAllText(_path, dataRow, System.Text.Encoding.UTF8);
         }
 
         public TimeLog[] GetTimeLogs(string lastName)
         {
 
-            var data = File.ReadAllText(PATH);
+            var data = File.ReadAllText(_path);
             var datarows = data.Split(new char[] { '\n' }, System.StringSplitOptions.RemoveEmptyEntries);
             var timeLogs = new List<TimeLog>();
 
             foreach (var dataRow in datarows)
             {
-                var fields = dataRow.Split(DELIMETER);
+                var fields = dataRow.Split(_delimeter);
 
                 var timeLog = new TimeLog()
                 {

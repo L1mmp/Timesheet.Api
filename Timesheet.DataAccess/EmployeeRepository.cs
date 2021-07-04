@@ -6,17 +6,24 @@ namespace Timesheet.DataAccess.CSV
 {
     public class EmployeeRepository : IEmployeeRepository
     {
-        private const string PATH = "..\\Timesheet.DataAccess\\Data\\employees.csv";
-        //private const string path = "\\home\\user\\MyProjects\\C#_Projects\\Timesheet.Api\\Timesheet.DataAccess\\employees.csv";
-        private const char DELIMETER = ';';
+        private readonly string _path;
+        
+        private readonly char _delimeter = ';';
+
+        public EmployeeRepository(CsvSettings csvSettings)
+        {
+            _path = csvSettings.Path + "\\employees.csv";
+            _delimeter = csvSettings.Delimeter;
+        }
+
         public void AddEmployee(StaffEmployee staffEmployee)
         {
-            var dataRow = $"{staffEmployee.LastName}{DELIMETER}{staffEmployee.Salary}{DELIMETER}\n";
-            File.AppendAllText(PATH, dataRow,System.Text.Encoding.UTF8);
+            var dataRow = $"{staffEmployee.LastName}{_delimeter}{staffEmployee.Salary}{_delimeter}\n";
+            File.AppendAllText(_path, dataRow,System.Text.Encoding.UTF8);
         }
         public StaffEmployee GetEmployee(string lastName)
         {
-            var data = File.ReadAllText(PATH);
+            var data = File.ReadAllText(_path);
             var datarows = data.Split(new char[] { '\n' }, System.StringSplitOptions.RemoveEmptyEntries);
 
             StaffEmployee empoloyee = null;
@@ -24,7 +31,7 @@ namespace Timesheet.DataAccess.CSV
             {
                 if(dataRow.Contains(lastName))
                 {
-                    var fields = dataRow.Split(DELIMETER);
+                    var fields = dataRow.Split(_delimeter);
                     
                     empoloyee = new StaffEmployee()
                     {
