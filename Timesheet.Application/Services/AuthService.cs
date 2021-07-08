@@ -2,12 +2,13 @@
 using Timesheet.Application.Services;
 using Timesheet.Domain.Models;
 using Timesheet.Domain.Repositories;
+using Timesheet.Domain.Services;
 
 namespace Timesheet.Application.Services
 {
     public class AuthService : IAuthService
     {
-        IEmployeeRepository _employeeRepository;
+        readonly IEmployeeRepository _employeeRepository;
 
         public AuthService(IEmployeeRepository employeeRepository)
         {

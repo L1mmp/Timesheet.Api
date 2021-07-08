@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Timesheet.Api.ResourceModels;
-using Timesheet.Application.Services;
+using Timesheet.Domain.Services;
 
 namespace Timesheet.Api.Controllers
 {
@@ -16,11 +16,7 @@ namespace Timesheet.Api.Controllers
         }
 
         [HttpPost]
-        public ActionResult<bool> Login(LoginRequest request)
-        {
-            //var authService = new AuthService();
-            return Ok(_authService.Login(request.LastName));
-        }
+        public ActionResult<bool> Login(LoginRequest request) => Ok(_authService.Login(request.LastName));
     }
 
 }

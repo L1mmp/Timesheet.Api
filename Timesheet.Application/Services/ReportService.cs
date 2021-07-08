@@ -1,9 +1,9 @@
 ﻿using System;
-using Timesheet.Domain.Models;
 using System.Collections.Generic;
-using Timesheet.Domain.Repositories;
 using System.Linq;
-using Domain.Services;
+using Timesheet.Domain.Models;
+using Timesheet.Domain.Services;
+using Timesheet.Domain.Repositories;
 
 namespace Timesheet.Application.Services
 {
@@ -12,6 +12,7 @@ namespace Timesheet.Application.Services
         private const int MAX_WORKING_HOURS_IN_MONTH = 160;
         private const int MAX_WORKING_HOURS_IN_DAY = 8;
         private const decimal OVERTIME_MULTIPLIER = 2m;
+        private const decimal MANAGER_OVERTIME_SALARY = 20000m;
         private readonly ITimesheetRepository _timesheetRepository;
         private readonly IEmployeeRepository _employeeRepository;
         public ReportService(ITimesheetRepository timesheetRepository, IEmployeeRepository employeeRepository)
@@ -20,12 +21,13 @@ namespace Timesheet.Application.Services
             _employeeRepository = employeeRepository;
         }
 
+
         public EmployeeReport GetEmployeeReport(string lastName)
         {
             var employee = _employeeRepository.GetEmployee(lastName);
             var timeLogs = _timesheetRepository.GetTimeLogs(employee.LastName);
 
-            if(timeLogs.Length == 0 || timeLogs == null)
+            if (timeLogs.Length == 0 || timeLogs == null)
             {
                 return new EmployeeReport
                 {
@@ -38,27 +40,68 @@ namespace Timesheet.Application.Services
             decimal bill = 0m;
             var totalHours = timeLogs.Sum(x => x.WorkingHours);
 
-
-            var workingHoursGroupByDay = timeLogs
-                .GroupBy(x => x.Date.ToShortDateString());
-
-            foreach (var workingLogsPerDay in workingHoursGroupByDay)
+            switch (lastName)
             {
-                int dayHours = workingLogsPerDay.Sum(x => x.WorkingHours);
+                //Staff
+                case "Петров":
+                    {
+                        var workingHoursGroupByDay = timeLogs
+                            .GroupBy(x => x.Date.ToShortDateString());
 
-                if(dayHours > MAX_WORKING_HOURS_IN_DAY)
-                {
-                    var overtimeHours = dayHours - MAX_WORKING_HOURS_IN_DAY;
+                        foreach (var workingLogsPerDay in workingHoursGroupByDay)
+                        {
+                            int dayHours = workingLogsPerDay.Sum(x => x.WorkingHours);
 
-                    bill += MAX_WORKING_HOURS_IN_DAY  * employee.Salary / MAX_WORKING_HOURS_IN_MONTH;
-                    bill += overtimeHours * employee.Salary * OVERTIME_MULTIPLIER / MAX_WORKING_HOURS_IN_MONTH;
-                }
-                else
-                {
-                    bill += dayHours * employee.Salary / MAX_WORKING_HOURS_IN_MONTH;
-                }
+                            if (dayHours > MAX_WORKING_HOURS_IN_DAY)
+                            {
+                                var overtimeHours = dayHours - MAX_WORKING_HOURS_IN_DAY;
 
+                                bill += MAX_WORKING_HOURS_IN_DAY * employee.Salary / MAX_WORKING_HOURS_IN_MONTH;
+                                bill += overtimeHours * employee.Salary * OVERTIME_MULTIPLIER / MAX_WORKING_HOURS_IN_MONTH;
+                            }
+                            else
+                            {
+                                bill += dayHours * employee.Salary / MAX_WORKING_HOURS_IN_MONTH;
+                            }
+
+                        }
+                        break;
+                    }
+                case "Иванов":
+                    //Freelancer
+                    {
+                        bill += totalHours * employee.Salary;
+                        break;
+                    }
+                case "Сидоров":
+                    //Manager
+                    {
+                        var workingHoursGroupByDay = timeLogs
+                            .GroupBy(x => x.Date.ToShortDateString());
+
+                        foreach (var workingLogsPerDay in workingHoursGroupByDay)
+                        {
+                            int dayHours = workingLogsPerDay.Sum(x => x.WorkingHours);
+
+                            if (dayHours > MAX_WORKING_HOURS_IN_DAY)
+                            {
+                                bill += MAX_WORKING_HOURS_IN_DAY * employee.Salary / MAX_WORKING_HOURS_IN_MONTH;
+                                bill += MANAGER_OVERTIME_SALARY;
+                            }
+                            else
+                            {
+                                bill += dayHours * employee.Salary / MAX_WORKING_HOURS_IN_MONTH;
+                            }
+
+                        }
+                        break;
+                    }
+
+                default:
+                    break;
             }
+
+
 
             var result = new EmployeeReport
             {

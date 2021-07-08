@@ -1,4 +1,5 @@
-﻿namespace Timesheet.Domain.Models
+﻿
+namespace Timesheet.Domain.Models
 {
     public class StaffEmployee
     {

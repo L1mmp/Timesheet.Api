@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Timesheet.Domain.Models;
 
 namespace Timesheet.Domain.Models
 {

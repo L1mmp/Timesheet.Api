@@ -1,6 +1,6 @@
 using Timesheet.Domain.Models;
 
-namespace Domain.Services
+namespace Timesheet.Domain.Services
 {
     public interface IReportService
     {

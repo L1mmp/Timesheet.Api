@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Timesheet.Api.ResourceModels;
-using Timesheet.Application.Services;
+using Timesheet.Domain.Services;
 
 namespace Timesheet.Api.Controllers
 {
@@ -16,6 +16,5 @@ namespace Timesheet.Api.Controllers
 
         [HttpPost]
         public ActionResult<bool> TrackTime(TrackTimeRequest request) => Ok(_timesheetService.TrackTime(request.GetTimeLog()));
-        //public DateTime TrackTime(TrackTimeRequest request) => request.GetTimeLog().Date;
     }
 }
