@@ -53,11 +53,7 @@ namespace Timesheet.Test
 
             employeeRepositoryMock
                 .Setup(x => x.GetEmployee(It.Is<string>(y => y == expectedLastName)))
-                .Returns(() => new StaffEmployee
-                {
-                    LastName = expectedLastName,
-                    Salary = 100000
-                })
+                .Returns(() => new StaffEmployee(expectedLastName, 100000))
                 .Verifiable();
 
             var service = new ReportService(timesheetRepositoryMock.Object, employeeRepositoryMock.Object);
@@ -124,11 +120,7 @@ namespace Timesheet.Test
 
             employeeRepositoryMock
                 .Setup(x => x.GetEmployee(It.Is<string>(y => y == expectedLastName)))
-                .Returns(() => new StaffEmployee
-                {
-                    LastName = expectedLastName,
-                    Salary = 100000
-                })
+                .Returns(() => new StaffEmployee(expectedLastName, 100000))
                 .Verifiable();
 
             var service = new ReportService(timesheetRepositoryMock.Object, employeeRepositoryMock.Object);
@@ -172,11 +164,7 @@ namespace Timesheet.Test
 
             employeeRepositoryMock
                 .Setup(x => x.GetEmployee(It.Is<string>(y => y == expectedLastName)))
-                .Returns(() => new StaffEmployee
-                {
-                    LastName = expectedLastName,
-                    Salary = 120000
-                })
+                .Returns(() => new StaffEmployee(expectedLastName, 120000))
                 .Verifiable();
 
             var service = new ReportService(timesheetRepositoryMock.Object, employeeRepositoryMock.Object);
@@ -227,11 +215,7 @@ namespace Timesheet.Test
 
             employeeRepositoryMock
                 .Setup(x => x.GetEmployee(It.Is<string>(y => y == expectedLastName)))
-                .Returns(() => new StaffEmployee
-                {
-                    LastName = expectedLastName,
-                    Salary = 100000
-                })
+                .Returns(() => new StaffEmployee(expectedLastName,100000))
                 .Verifiable();
 
             var service = new ReportService(timesheetRepositoryMock.Object, employeeRepositoryMock.Object);
@@ -283,11 +267,7 @@ namespace Timesheet.Test
 
             employeeRepositoryMock
                 .Setup(x => x.GetEmployee(It.Is<string>(y => y == expectedLastName)))
-                .Returns(() => new StaffEmployee
-                {
-                    LastName = expectedLastName,
-                    Salary = 100000
-                })
+                .Returns(() => new StaffEmployee(expectedLastName, 100000))
                 .Verifiable();
 
             var service = new ReportService(timesheetRepositoryMock.Object, employeeRepositoryMock.Object);

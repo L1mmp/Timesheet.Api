@@ -17,12 +17,7 @@ namespace Timesheet.Test
             var employeeRepository = new Mock<IEmployeeRepository>();
 
             employeeRepository.Setup(x => x.GetEmployee(It.Is<string>(y => y == (lastName))))
-                .Returns(() => new StaffEmployee()
-                {
-                    LastName = lastName,
-                    Salary = 120000
-                }
-                )
+                .Returns(() => new StaffEmployee(lastName, 120000))
                 .Verifiable()
             ;
 
@@ -51,12 +46,7 @@ namespace Timesheet.Test
             var employeeRepository = new Mock<IEmployeeRepository>();
 
             employeeRepository.Setup(x => x.GetEmployee(It.Is<string>(y => y == (lastName))))
-                .Returns(() => new StaffEmployee()
-                {
-                    LastName = lastName,
-                    Salary = 120000
-                }
-                )
+                .Returns(() => new StaffEmployee(lastName, 120000))
                 .Verifiable()
             ;
 
