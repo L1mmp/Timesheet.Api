@@ -1,8 +1,8 @@
-﻿using NUnit.Framework;
+﻿using Moq;
+using NUnit.Framework;
 using System;
-using Timesheet.Domain.Models;
 using Timesheet.Application.Services;
-using Moq;
+using Timesheet.Domain.Models;
 using Timesheet.Domain.Repositories;
 
 namespace Timesheet.Test

@@ -1,23 +1,21 @@
-﻿
-using System.Linq;
+﻿using System.Linq;
 
 namespace Timesheet.Domain.Models
 {
-    public class StaffEmployee : Employee
+    class Manager : Employee
     {
-
-        private const decimal OVERTIME_MULTIPLIER = 2m;
-
-        public StaffEmployee(string lastName, decimal salary) : base(lastName, salary)
+        public Manager(string lastName, decimal salary) : base(lastName, salary)
         {
         }
+
+        private const decimal MANAGER_OVERTIME_SALARY = 20000m;
 
         public override decimal CalculateBill(TimeLog[] timeLogs)
         {
             var workingHoursGroupByDay = timeLogs
                 .GroupBy(x => x.Date.ToShortDateString());
-            decimal bill = 0m;
 
+            decimal bill = 0m;
 
             foreach (var workingLogsPerDay in workingHoursGroupByDay)
             {
@@ -25,10 +23,8 @@ namespace Timesheet.Domain.Models
 
                 if (dayHours > MAX_WORKING_HOURS_IN_DAY)
                 {
-                    var overtimeHours = dayHours - MAX_WORKING_HOURS_IN_DAY;
-
                     bill += MAX_WORKING_HOURS_IN_DAY * Salary / MAX_WORKING_HOURS_IN_MONTH;
-                    bill += overtimeHours * Salary * OVERTIME_MULTIPLIER / MAX_WORKING_HOURS_IN_MONTH;
+                    bill += MANAGER_OVERTIME_SALARY;
                 }
                 else
                 {
@@ -36,7 +32,6 @@ namespace Timesheet.Domain.Models
                 }
 
             }
-
 
             return bill;
         }

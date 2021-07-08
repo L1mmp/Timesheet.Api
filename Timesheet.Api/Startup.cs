@@ -4,9 +4,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Timesheet.Application.Services;
-using Timesheet.Domain.Services;
-using Timesheet.Domain.Repositories;
 using Timesheet.DataAccess.CSV;
+using Timesheet.Domain.Repositories;
+using Timesheet.Domain.Services;
 
 namespace Timesheet.Api
 {
