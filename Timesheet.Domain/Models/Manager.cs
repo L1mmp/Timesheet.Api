@@ -2,7 +2,7 @@
 
 namespace Timesheet.Domain.Models
 {
-    class Manager : Employee
+    public class Manager : Employee
     {
         public Manager(string lastName, decimal salary) : base(lastName, salary)
         {

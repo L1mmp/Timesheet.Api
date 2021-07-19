@@ -16,6 +16,6 @@ namespace Timesheet.Api.ResourceModels
         }
 
         [HttpPost]
-        public ActionResult<bool> Add(StaffEmployee staffEmployee) => Ok(_employeeService.AddEmployee(staffEmployee));
+        public ActionResult<bool> Add(Employee staffEmployee) => Ok(_employeeService.AddEmployee(staffEmployee));
     }
 }

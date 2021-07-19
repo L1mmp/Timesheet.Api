@@ -19,7 +19,7 @@ namespace Timesheet.Application.Services
             if (string.IsNullOrEmpty(lastName))
                 return false;
 
-            StaffEmployee employee = _employeeRepository.GetEmployee(lastName);
+            Employee employee = _employeeRepository.GetEmployee(lastName);
             bool isEmployeeExist = (employee != null);
 
             if (isEmployeeExist)

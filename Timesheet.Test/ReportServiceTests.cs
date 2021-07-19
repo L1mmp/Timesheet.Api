@@ -174,6 +174,7 @@ namespace Timesheet.Test
             //act
 
             timesheetRepositoryMock.VerifyAll();
+
             //assert
 
 
@@ -239,14 +240,15 @@ namespace Timesheet.Test
         }
 
         [Test]
-        public void GetEmployeeReport_WithOvertime_ShouldReturnReportForOneDay()
+        [TestCase("Иванов", 70000, 4500)]// 8m / 160m * 70000m + 1000 (у руководителей бонус 1000 за день вне зависимости от переаботанных часов)
+        [TestCase("Петров", 70000, 7000)]// 8m / 160m * 70000m + 4m / 160m * 70000m * 2
+        [TestCase("Сидоров", 1000, 12000)]// 12m * 1000 = 12000
+        public void GetEmployeeReport_WithOvertime_ShouldReturnReportForOneDay(string expectedLastName, decimal salary, decimal expectedTotal)
         {
             //arrange 
 
             var timesheetRepositoryMock = new Mock<ITimesheetRepository>();
             var employeeRepositoryMock = new Mock<IEmployeeRepository>();
-            var expectedLastName = "Иванов";
-            var expectedTotal = 8m / 160m * 100000m + 4m / 160m * 100000m * 2;
             var expectedTotalHours = 12;
 
             timesheetRepositoryMock
@@ -267,7 +269,7 @@ namespace Timesheet.Test
 
             employeeRepositoryMock
                 .Setup(x => x.GetEmployee(It.Is<string>(y => y == expectedLastName)))
-                .Returns(() => new StaffEmployee(expectedLastName, 100000))
+                .Returns(() => new StaffEmployee(expectedLastName, salary))
                 .Verifiable();
 
             var service = new ReportService(timesheetRepositoryMock.Object, employeeRepositoryMock.Object);
